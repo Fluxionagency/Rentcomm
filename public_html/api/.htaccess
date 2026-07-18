@@ -1,0 +1,4 @@
+# Never serve config files, even if PHP handling is ever misconfigured.
+<FilesMatch "^(config|config\.sample)\.php$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,7 @@
+# Real credentials — copy api/config.sample.php to api/config.php on the server.
+public_html/api/config.php
+
+# Uploaded marketing assets (managed via the Admin Portal on the server)
+public_html/downloads/*
+!public_html/downloads/.htaccess
+!public_html/downloads/README.md

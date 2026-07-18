@@ -1,0 +1,66 @@
+/* Rentcom — shared production styles.
+   The visual language is inline-styled per page (ported 1:1 from the design
+   spec); this sheet only carries resets and interactive states that inline
+   styles can't express. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: #FF6200; }
+a:hover { color: #E55A00; }
+
+.hidden { display: none !important; }
+
+/* Real form fields, styled to match the spec's input look */
+.field {
+  display: block;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #E2DED7;
+  padding: 17px 20px;
+  font: 400 16px/1 'DM Sans', sans-serif;
+  color: #111;
+  border-radius: 0;
+  outline: none;
+}
+.field::placeholder { color: #C4BFB7; }
+.field:focus { border-color: #FF6200; }
+
+/* Dark variant (Realtor Journey, Admin login) */
+.field--dark {
+  background: #0D0D0D;
+  border-color: #2E2E2E;
+  color: #fff;
+}
+.field--dark::placeholder { color: #555; }
+.field--dark:focus { border-color: #FF6200; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background: #FF6200;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn:hover { background: #E55A00; color: #fff; }
+button.btn { width: 100%; }
+
+.form-error {
+  font: 400 13px/1.5 'DM Sans', sans-serif;
+  color: #C62828;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Nav link hover states */
+.nav-link { color: #888; text-decoration: none; transition: color .15s; }
+.nav-link:hover { color: #fff; }
+.nav-link--active {
+  color: #FF6200;
+  border-bottom: 1.5px solid #FF6200;
+  padding-bottom: 2px;
+}
+.nav-link--active:hover { color: #FF6200; }

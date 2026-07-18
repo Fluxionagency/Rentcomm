@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=Nunito:wght@800&display=swap" rel="stylesheet">
+  <style>* { box-sizing:border-box; margin:0; padding:0; } a{color:#FF6200} a:hover{color:#E55A00}</style>
+</helmet>
+
+<sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+<!-- ═══ LOGIN ═══ -->
+<div style="background:#111;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif">
+  <div style="width:min(420px,90vw)">
+    <div style="display:flex;align-items:flex-start;gap:6px;justify-content:center;margin-bottom:56px">
+      <div style="width:11px;height:11px;border-radius:50%;background:#FF3C3C;margin-top:6px;flex-shrink:0"></div>
+      <span style="font:800 32px/1 'Nunito',sans-serif;color:#FF6200;letter-spacing:-.02em">Rentcom</span>
+    </div>
+    <div style="background:#1A1A1A;border:1px solid #2A2A2A;padding:44px 40px">
+      <h1 style="font:700 26px/1.2 'Playfair Display',serif;color:#fff;margin-bottom:8px;text-align:center">Admin Portal</h1>
+      <p style="font:400 14px/1.5 'DM Sans',sans-serif;color:#777;margin-bottom:36px;text-align:center">Sign in to manage leads and campaigns</p>
+      <div style="margin-bottom:20px">
+        <label style="display:block;font:500 13px/1 'DM Sans',sans-serif;color:#ccc;margin-bottom:9px">Email</label>
+        <div style="background:#111;border:1.5px solid #2E2E2E;padding:15px 18px;font:400 15px/1 'DM Sans',sans-serif;color:#555">team@rentcom.com</div>
+      </div>
+      <div style="margin-bottom:32px">
+        <label style="display:block;font:500 13px/1 'DM Sans',sans-serif;color:#ccc;margin-bottom:9px">Password</label>
+        <div style="background:#111;border:1.5px solid #2E2E2E;padding:15px 18px;font:400 15px/1 'DM Sans',sans-serif;color:#555">••••••••</div>
+      </div>
+      <div onClick="{{ login }}" style="background:#FF6200;color:#fff;padding:16px;font:600 15px/1 'DM Sans',sans-serif;text-align:center;cursor:pointer">Log In</div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+<!-- ═══ DASHBOARD ═══ -->
+<div style="background:#F5F4F1;width:100%;min-height:100vh;display:flex;flex-wrap:wrap;font-family:'DM Sans',sans-serif">
+
+  <!-- SIDEBAR -->
+  <div style="width:260px;background:#111;flex-shrink:0;display:flex;flex-direction:column;padding:28px 0">
+    <div style="display:flex;align-items:flex-start;gap:6px;padding:0 28px;margin-bottom:48px">
+      <div style="width:9px;height:9px;border-radius:50%;background:#FF3C3C;margin-top:5px;flex-shrink:0"></div>
+      <span style="font:800 24px/1 'Nunito',sans-serif;color:#FF6200;letter-spacing:-.02em">Rentcom</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;padding:0 16px;flex:1">
+      <div onClick="{{ goOverview }}" style="{{ navStyleOverview }}">Overview</div>
+      <div onClick="{{ goInvestors }}" style="{{ navStyleInvestors }}">Investors Directory</div>
+      <div onClick="{{ goRealtors }}" style="{{ navStyleRealtors }}">Realtors Directory</div>
+      <div onClick="{{ goDispatch }}" style="{{ navStyleDispatch }}">Invite Dispatch Tracker</div>
+      <div onClick="{{ goAssets }}" style="{{ navStyleAssets }}">Asset Manager</div>
+    </div>
+    <div style="padding:16px 28px;border-top:1px solid #222;margin-top:16px">
+      <div onClick="{{ logout }}" style="font:500 13px/1 'DM Sans',sans-serif;color:#AAA;cursor:pointer">← Log Out</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div style="flex:1;min-width:280px;display:flex;flex-direction:column;overflow:hidden">
+    <div style="height:80px;background:#fff;border-bottom:1px solid #E6E2DB;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,40px);flex-shrink:0">
+      <h1 style="font:700 22px/1 'Playfair Display',serif;color:#111">{{ pageTitle }}</h1>
+      <div style="background:#F2F0EB;border:1px solid #E6E2DB;padding:11px 18px;font:400 14px/1 'DM Sans',sans-serif;color:#999;width:min(260px,60vw)">Search…</div>
+    </div>
+    <div style="flex:1;padding:clamp(20px,4vw,40px);overflow:auto">
+
+      <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:32px">
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px"><div style="font:700 36px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ stats.investorCount }}</div><div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Total Investors</div></div>
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px"><div style="font:700 36px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ stats.realtorCount }}</div><div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Total Realtors</div></div>
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px"><div style="font:700 36px/1 'Playfair Display',serif;color:#FF6200;margin-bottom:8px">{{ stats.pendingPacks }}</div><div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Invite Packs Pending</div></div>
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px"><div style="font:700 36px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ stats.scheduledVisits }}</div><div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Site Visits Scheduled</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px">
+              <h3 style="font:700 17px/1 'Playfair Display',serif;color:#111;margin-bottom:20px">Recent Investor Leads</h3>
+              <sc-for list="{{ recentInvestors }}" as="row" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F2F0EB">
+                  <div style="font:500 14px/1 'DM Sans',sans-serif;color:#111">{{ row.name }}</div>
+                  <span style="{{ row.statusStyle }}">{{ row.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #E6E2DB;padding:28px">
+              <h3 style="font:700 17px/1 'Playfair Display',serif;color:#111;margin-bottom:20px">Recent Realtor Signups</h3>
+              <sc-for list="{{ recentRealtors }}" as="row" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F2F0EB">
+                  <div style="font:500 14px/1 'DM Sans',sans-serif;color:#111">{{ row.name }}</div>
+                  <div style="font:400 13px/1 'DM Sans',sans-serif;color:#999">{{ row.date }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isInvestors }}" hint-placeholder-val="{{ false }}">
+        <div style="overflow-x:auto">
+        <div style="background:#fff;border:1px solid #E6E2DB;min-width:640px">
+          <div style="display:grid;grid-template-columns:2fr 2.4fr 1.6fr 1.6fr;padding:18px 28px;border-bottom:1px solid #ECEAE5">
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Name</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Email</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">WhatsApp</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Status</div>
+          </div>
+          <sc-for list="{{ investors }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:2fr 2.4fr 1.6fr 1.6fr;padding:20px 28px;border-bottom:1px solid #F2F0EB;align-items:center">
+              <div style="font:600 14px/1 'DM Sans',sans-serif;color:#111">{{ row.name }}</div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.email }}</div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.whatsapp }}</div>
+              <div><span style="{{ row.statusStyle }}">{{ row.status }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRealtors }}" hint-placeholder-val="{{ false }}">
+        <div style="overflow-x:auto">
+        <div style="background:#fff;border:1px solid #E6E2DB;min-width:640px">
+          <div style="display:grid;grid-template-columns:2fr 2.4fr 1.6fr 1.6fr;padding:18px 28px;border-bottom:1px solid #ECEAE5">
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Name</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Email</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">WhatsApp</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Onboarding Date</div>
+          </div>
+          <sc-for list="{{ realtors }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:2fr 2.4fr 1.6fr 1.6fr;padding:20px 28px;border-bottom:1px solid #F2F0EB;align-items:center">
+              <div style="font:600 14px/1 'DM Sans',sans-serif;color:#111">{{ row.name }}</div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.email }}</div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.whatsapp }}</div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.date }}</div>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDispatch }}" hint-placeholder-val="{{ false }}">
+        <div style="overflow-x:auto">
+        <div style="background:#fff;border:1px solid #E6E2DB;min-width:600px">
+          <div style="display:grid;grid-template-columns:2fr 1.6fr 1.6fr 1.8fr;padding:18px 28px;border-bottom:1px solid #ECEAE5">
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Realtor</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Invite Pack</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Site Visit</div>
+            <div style="font:600 11px/1 'DM Sans',sans-serif;color:#999;text-transform:uppercase;letter-spacing:.08em">Visit Date</div>
+          </div>
+          <sc-for list="{{ dispatches }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:2fr 1.6fr 1.6fr 1.8fr;padding:20px 28px;border-bottom:1px solid #F2F0EB;align-items:center">
+              <div style="font:600 14px/1 'DM Sans',sans-serif;color:#111">{{ row.name }}</div>
+              <div><span style="{{ row.packStyle }}">{{ row.packStatus }}</span></div>
+              <div><span style="{{ row.visitStyle }}">{{ row.visitStatus }}</span></div>
+              <div style="font:400 14px/1 'DM Sans',sans-serif;color:#666">{{ row.visitDate }}</div>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAssets }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="border:2px dashed #D8D4CC;background:#fff;padding:40px;text-align:center;margin-bottom:32px">
+            <div style="font:600 15px/1 'DM Sans',sans-serif;color:#333;margin-bottom:8px">Upload a New Asset</div>
+            <div style="font:400 13px/1.4 'DM Sans',sans-serif;color:#999">Drop a file here, or click to browse — replaces the current version on the site instantly.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+            <sc-for list="{{ assets }}" as="a" hint-placeholder-count="4">
+              <div style="background:#fff;border:1px solid #E6E2DB;padding:24px;display:flex;gap:20px;align-items:center">
+                <div style="width:52px;height:66px;background:#F2F0EB;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:600 10px/1 'DM Sans',sans-serif;color:#999">{{ a.type }}</div>
+                <div style="flex:1">
+                  <div style="font:600 15px/1.3 'DM Sans',sans-serif;color:#111;margin-bottom:4px">{{ a.name }}</div>
+                  <div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;margin-bottom:12px">Updated {{ a.updated }}</div>
+                  <span style="font:500 13px/1 'DM Sans',sans-serif;color:#FF6200;cursor:pointer">Replace File →</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const STATUS_STYLE = {
+  'Contacted': 'background:#FFF3E0;color:#C46A00;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Meeting Scheduled': 'background:#E8F5E9;color:#2E7D32;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Cold': 'background:#F0EFEC;color:#999;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'New': 'background:#FDE8DB;color:#FF6200;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+};
+const PACK_STYLE = {
+  'Pending': 'background:#F0EFEC;color:#999;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Dispatched': 'background:#FFF3E0;color:#C46A00;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Delivered': 'background:#E8F5E9;color:#2E7D32;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+};
+const VISIT_STYLE = {
+  'Scheduled': 'background:#E3F2FD;color:#1565C0;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Not Scheduled': 'background:#F0EFEC;color:#999;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+  'Completed': 'background:#E8F5E9;color:#2E7D32;padding:6px 12px;font:600 12px/1 \'DM Sans\',sans-serif;border-radius:3px',
+};
+
+class Component extends DCLogic {
+  state = { loggedIn: false, view: 'overview' };
+
+  navItemStyle(key) {
+    const active = this.state.view === key;
+    return "display:block;padding:13px 12px;margin-bottom:2px;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;border-radius:4px;" +
+      (active ? 'background:#FF6200;color:#fff' : 'background:transparent;color:#FF6200');
+  }
+
+  renderVals() {
+    const investors = [
+      { name: 'Adaeze Okafor', email: 'adaeze.okafor@gmail.com', whatsapp: '+234 803 221 4456', status: 'Meeting Scheduled' },
+      { name: 'Tunde Bakare', email: 'tunde.bakare@yahoo.com', whatsapp: '+234 705 902 1187', status: 'Contacted' },
+      { name: 'Chiamaka Nwosu', email: 'chiamaka.n@outlook.com', whatsapp: '+234 812 445 0093', status: 'New' },
+      { name: 'Emeka Johnson', email: 'e.johnson@investcorp.ng', whatsapp: '+234 906 331 7720', status: 'Cold' },
+      { name: 'Folake Adeyemi', email: 'folake.a@gmail.com', whatsapp: '+234 802 118 5543', status: 'Contacted' },
+    ].map(r => ({ ...r, statusStyle: STATUS_STYLE[r.status] }));
+
+    const realtors = [
+      { name: 'Ibrahim Musa', email: 'ibrahim.musa@remax.ng', whatsapp: '+234 807 662 4410', date: 'Jul 2, 2026' },
+      { name: 'Blessing Eze', email: 'blessing.eze@gmail.com', whatsapp: '+234 813 990 2261', date: 'Jul 5, 2026' },
+      { name: 'Kelechi Uba', email: 'kelechi.uba@homesng.com', whatsapp: '+234 701 456 8832', date: 'Jul 9, 2026' },
+      { name: 'Ngozi Chukwu', email: 'ngozi.c@propertyplus.ng', whatsapp: '+234 815 223 9901', date: 'Jul 12, 2026' },
+      { name: 'Yusuf Abdullahi', email: 'yusuf.a@gmail.com', whatsapp: '+234 908 774 1123', date: 'Jul 14, 2026' },
+    ];
+
+    const dispatches = [
+      { name: 'Ibrahim Musa', packStatus: 'Delivered', visitStatus: 'Scheduled', visitDate: 'Aug 22, 2026' },
+      { name: 'Blessing Eze', packStatus: 'Dispatched', visitStatus: 'Not Scheduled', visitDate: '—' },
+      { name: 'Kelechi Uba', packStatus: 'Pending', visitStatus: 'Not Scheduled', visitDate: '—' },
+      { name: 'Ngozi Chukwu', packStatus: 'Delivered', visitStatus: 'Completed', visitDate: 'Jul 10, 2026' },
+      { name: 'Yusuf Abdullahi', packStatus: 'Pending', visitStatus: 'Scheduled', visitDate: 'Aug 28, 2026' },
+    ].map(r => ({ ...r, packStyle: PACK_STYLE[r.packStatus], visitStyle: VISIT_STYLE[r.visitStatus] }));
+
+    const assets = [
+      { name: 'Fadayee Brochure', type: 'PDF', updated: 'Jul 14, 2026' },
+      { name: 'Social Media Pack', type: 'ZIP', updated: 'Jul 10, 2026' },
+      { name: 'Site Walkthrough Video', type: 'MP4', updated: 'Jul 1, 2026' },
+      { name: 'Unit Price List', type: 'PDF', updated: 'Jul 15, 2026' },
+    ];
+
+    const titles = { overview: 'Overview', investors: 'Investors Directory', realtors: 'Realtors Directory', dispatch: 'Invite Dispatch Tracker', assets: 'Asset Manager' };
+
+    const stats = {
+      investorCount: investors.length,
+      realtorCount: realtors.length,
+      pendingPacks: dispatches.filter(d => d.packStatus === 'Pending').length,
+      scheduledVisits: dispatches.filter(d => d.visitStatus === 'Scheduled').length,
+    };
+    const recentInvestors = investors.slice(0, 3);
+    const recentRealtors = realtors.slice(0, 3);
+
+    return {
+      showLogin: !this.state.loggedIn,
+      loggedIn: this.state.loggedIn,
+      login: () => this.setState({ loggedIn: true }),
+      logout: () => this.setState({ loggedIn: false }),
+      goOverview: () => this.setState({ view: 'overview' }),
+      goInvestors: () => this.setState({ view: 'investors' }),
+      goRealtors: () => this.setState({ view: 'realtors' }),
+      goDispatch: () => this.setState({ view: 'dispatch' }),
+      goAssets: () => this.setState({ view: 'assets' }),
+      navStyleOverview: this.navItemStyle('overview'),
+      navStyleInvestors: this.navItemStyle('investors'),
+      navStyleRealtors: this.navItemStyle('realtors'),
+      navStyleDispatch: this.navItemStyle('dispatch'),
+      navStyleAssets: this.navItemStyle('assets'),
+      pageTitle: titles[this.state.view],
+      isOverview: this.state.view === 'overview',
+      isInvestors: this.state.view === 'investors',
+      isRealtors: this.state.view === 'realtors',
+      isDispatch: this.state.view === 'dispatch',
+      isAssets: this.state.view === 'assets',
+      investors, realtors, dispatches, assets, stats, recentInvestors, recentRealtors,
+    };
+  }
+}
+</script>
+</body>
+</html>

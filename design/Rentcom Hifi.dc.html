@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=Nunito:wght@800&display=swap" rel="stylesheet">
+  <style>* { box-sizing:border-box; margin:0; padding:0; } a{color:#FF6200} a:hover{color:#E55A00}</style>
+</helmet>
+<div style="background:#fff;width:100%;min-height:100vh;font-family:'DM Sans',sans-serif">
+
+  <!-- NAV -->
+  <nav style="background:#111;padding:12px clamp(20px,5vw,72px);min-height:72px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e1e">
+    <div onClick="{{ goHome }}" style="display:flex;align-items:flex-start;gap:5px;cursor:pointer">
+      <div style="width:9px;height:9px;border-radius:50%;background:#FF3C3C;margin-top:5px;flex-shrink:0"></div>
+      <span style="font:800 26px/1 'Nunito',sans-serif;color:#FF6200;letter-spacing:-.02em">Rentcom</span>
+    </div>
+    <div style="display:flex;gap:clamp(16px,3vw,48px);align-items:center;flex-wrap:wrap">
+      <a href="./Rentcom Report Page.dc.html" style="font:500 15px/1 'DM Sans',sans-serif;color:#888;text-decoration:none">Reports</a>
+      <span onClick="{{ goPortfolioList }}" style="{{ portfolioNavStyle }}">Portfolio</span>
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;background:#1E1E1E;padding:4px;gap:4px">
+        <div onClick="{{ setInvestor }}" style="{{ investorPillStyle }}">Investor</div>
+        <div onClick="{{ setRealtor }}" style="{{ realtorPillStyle }}">Realtor</div>
+      </div>
+      </sc-if>
+    </div>
+  </nav>
+
+  <!-- ═══ HOME ═══ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <section style="background:#111;padding:clamp(56px,10vw,104px) clamp(20px,5vw,72px) clamp(48px,8vw,96px)">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:40px">
+        <div style="width:32px;height:1.5px;background:#FF6200"></div>
+        <span style="font:500 11px/1 'DM Sans',sans-serif;color:#FF6200;letter-spacing:.2em;text-transform:uppercase">{{ eyebrow }}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,6vw,96px);align-items:center">
+        <div>
+          <h1 style="font:700 clamp(38px,7vw,68px)/1.05 'Playfair Display',serif;color:#fff;margin-bottom:30px;text-wrap:pretty">{{ headline }}</h1>
+          <p style="font:400 18px/1.8 'DM Sans',sans-serif;color:#666;margin-bottom:44px">{{ subhead }}</p>
+          <a href="{{ ctaHref }}" style="display:inline-block;background:#FF6200;color:#fff;padding:19px 40px;font:600 17px/1 'DM Sans',sans-serif;text-decoration:none">{{ ctaLabel }} →</a>
+        </div>
+        <div style="border-left:1px solid #282828;padding-left:64px">
+          <div style="display:flex;flex-direction:column;gap:40px;margin-bottom:48px">
+            <div>
+              <div style="font:700 clamp(34px,6vw,58px)/1 'Playfair Display',serif;color:#fff;margin-bottom:12px">{{ stat1Val }}</div>
+              <div style="font:400 11px/1.5 'DM Sans',sans-serif;color:#555;text-transform:uppercase;letter-spacing:.1em">{{ stat1Label }}</div>
+            </div>
+            <div>
+              <div style="font:700 clamp(34px,6vw,58px)/1 'Playfair Display',serif;color:#fff;margin-bottom:12px">{{ stat2Val }}</div>
+              <div style="font:400 11px/1.5 'DM Sans',sans-serif;color:#555;text-transform:uppercase;letter-spacing:.1em">{{ stat2Label }}</div>
+            </div>
+          </div>
+          <div style="border-top:1px solid #222;padding-top:32px">
+            <p style="font:400 14px/1.75 'DM Sans',sans-serif;color:#555">The most trusted source of rental intelligence in Lagos, Nigeria.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:clamp(56px,8vw,96px) clamp(20px,5vw,72px);background:#fff">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:68px">
+        <div style="width:32px;height:1.5px;background:#FF6200"></div>
+        <span style="font:500 11px/1 'DM Sans',sans-serif;color:#FF6200;letter-spacing:.2em;text-transform:uppercase">Free Report</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(40px,6vw,100px);align-items:start">
+        <div>
+          <div style="width:240px;height:310px;overflow:hidden;margin-bottom:36px">
+            <img src="assets/lagos-rent-report-cover.jpg" style="width:100%;height:100%;object-fit:cover;display:block" />
+          </div>
+          <h2 style="font:700 34px/1.15 'Playfair Display',serif;color:#111;margin-bottom:8px">The Lagos Rent Report 2026</h2>
+          <div style="font:400 16px/1 'DM Sans',sans-serif;color:#999;margin-bottom:6px">Revenue Per Asset Index</div>
+          <div style="font:400 13px/1 'DM Sans',sans-serif;color:#C4BFB7;margin-bottom:40px">July 2026 · 15 Submarkets · PDF</div>
+          <div style="font:600 11px/1 'DM Sans',sans-serif;color:#111;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">What's Inside</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:5px;height:5px;border-radius:50%;background:#FF6200;flex-shrink:0"></div><span style="font:400 15px/1 'DM Sans',sans-serif;color:#555">Average rent by submarket</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:5px;height:5px;border-radius:50%;background:#FF6200;flex-shrink:0"></div><span style="font:400 15px/1 'DM Sans',sans-serif;color:#555">Year-over-year rent movement</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:5px;height:5px;border-radius:50%;background:#FF6200;flex-shrink:0"></div><span style="font:400 15px/1 'DM Sans',sans-serif;color:#555">Revenue per asset index</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:5px;height:5px;border-radius:50%;background:#FF6200;flex-shrink:0"></div><span style="font:400 15px/1 'DM Sans',sans-serif;color:#555">Market outlook 2026–27</span></div>
+          </div>
+        </div>
+        <div style="background:#F7F5F0;padding:56px 48px">
+          <sc-if value="{{ reportNotSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h3 style="font:700 36px/1.12 'Playfair Display',serif;color:#111;margin-bottom:10px">Get Your Free Copy</h3>
+            <p style="font:400 15px/1.65 'DM Sans',sans-serif;color:#999;margin-bottom:48px">Fill in your details — we'll send the report straight to you.</p>
+            <div style="margin-bottom:24px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">Your Name</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">Full name</div></div>
+            <div style="margin-bottom:24px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">Email Address</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">your@email.com</div></div>
+            <div style="margin-bottom:44px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">WhatsApp Number</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">+234 ...</div></div>
+            <div onClick="{{ submitReport }}" style="background:#FF6200;color:#fff;padding:20px;font:600 18px/1 'DM Sans',sans-serif;text-align:center;cursor:pointer;letter-spacing:.01em">Download Report →</div>
+            <p style="font:400 12px/1 'DM Sans',sans-serif;color:#C4BFB7;text-align:center;margin-top:14px">Free. No spam. Delivered instantly to your inbox.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ reportSubmitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:32px 0">
+            <div style="width:56px;height:56px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font:700 22px/1 'DM Sans',sans-serif;color:#FF6200">✓</div>
+            <h3 style="font:700 32px/1.15 'Playfair Display',serif;color:#111;margin-bottom:14px">Thank You!</h3>
+            <p style="font:400 16px/1.65 'DM Sans',sans-serif;color:#999">Your copy of The Lagos Rent Report 2026 is on its way to your inbox.</p>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#1A1A1A;padding:clamp(56px,8vw,96px) clamp(20px,5vw,72px)">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:56px">
+        <div style="width:32px;height:1.5px;background:#FF6200"></div>
+        <span style="font:500 11px/1 'DM Sans',sans-serif;color:#FF6200;letter-spacing:.2em;text-transform:uppercase">{{ teaserEyebrow }}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,80px);align-items:center">
+        <div>
+          <h2 style="font:700 clamp(28px,5vw,52px)/1.08 'Playfair Display',serif;color:#fff;margin-bottom:24px">{{ teaserHeadline }}</h2>
+          <p style="font:400 17px/1.85 'DM Sans',sans-serif;color:#777;margin-bottom:48px">{{ teaserBody }}</p>
+          <a href="{{ teaserHref }}" onClick="{{ teaserClick }}" style="display:inline-flex;align-items:stretch;cursor:pointer;text-decoration:none">
+            <div style="background:#FF6200;color:#fff;padding:20px 40px;font:600 16px/1 'DM Sans',sans-serif">{{ teaserCta }}</div>
+            <div style="background:#E55A00;color:#fff;padding:20px 22px;font:600 16px/1 'DM Sans',sans-serif">→</div>
+          </a>
+        </div>
+        <sc-if value="{{ isInvestor }}" hint-placeholder-val="{{ true }}">
+          <img src="assets/falcon-house.jpg" style="width:100%;height:360px;object-fit:cover;display:block" />
+        </sc-if>
+        <sc-if value="{{ isRealtor }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#242424;border:1px solid #2E2E2E;height:360px;display:flex;align-items:center;justify-content:center">
+          <div style="text-align:center">
+            <div style="width:56px;height:56px;border:1.5px solid #383838;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+              <div style="font:400 22px/1 system-ui;color:#484848">⌁</div>
+            </div>
+            <div style="font:400 11px/1 'DM Sans',sans-serif;color:#484848;text-transform:uppercase;letter-spacing:.12em">{{ teaserPhotoLabel }}</div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ═══ PORTFOLIO LIST ═══ -->
+  <sc-if value="{{ isPortfolioList }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:#111;padding:clamp(40px,6vw,56px) clamp(20px,5vw,72px) clamp(48px,6vw,80px)">
+      <div onClick="{{ goHome }}" style="font:400 13px/1 'DM Sans',sans-serif;color:#555;margin-bottom:48px;cursor:pointer">← Back to Homepage</div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+        <div style="width:32px;height:1.5px;background:#FF6200"></div>
+        <span style="font:500 11px/1 'DM Sans',sans-serif;color:#FF6200;letter-spacing:.2em;text-transform:uppercase">Portfolio</span>
+      </div>
+      <h1 style="font:700 clamp(30px,5.5vw,56px)/1.08 'Playfair Display',serif;color:#fff;margin-bottom:20px;max-width:740px">Our Portfolio</h1>
+      <p style="font:400 18px/1.75 'DM Sans',sans-serif;color:#666;max-width:680px">Partnership-driven developments positioned to finance, execute and operate serviced residential communities across Lagos.</p>
+    </section>
+    <section style="padding:clamp(48px,7vw,88px) clamp(20px,5vw,72px);background:#fff">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="1">
+          <div onClick="{{ p.select }}" style="border:1px solid #E6E2DB;cursor:pointer">
+            <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ p.image }}" style="width:100%;height:280px;object-fit:cover;display:block" />
+            </sc-if>
+            <sc-if value="{{ p.noImage }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#F2F0EB;height:280px;display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center">
+                <div style="width:52px;height:52px;border:1.5px solid #DDD9D1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><div style="font:400 22px/1 system-ui;color:#C8C4BC">⌁</div></div>
+                <div style="font:600 11px/1 'DM Sans',sans-serif;color:#C4BFB7;letter-spacing:.12em;text-transform:uppercase">Project Photo</div>
+              </div>
+            </div>
+            </sc-if>
+            <div style="padding:32px">
+              <h3 style="font:700 26px/1.2 'Playfair Display',serif;color:#111;margin-bottom:10px">{{ p.name }}</h3>
+              <p style="font:400 15px/1.7 'DM Sans',sans-serif;color:#666;margin-bottom:16px">{{ p.tagline }}</p>
+              <span style="font:500 14px/1 'DM Sans',sans-serif;color:#FF6200">View Details →</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ═══ PORTFOLIO DETAIL ═══ -->
+  <sc-if value="{{ isPortfolioDetail }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:#111;padding:clamp(40px,6vw,56px) clamp(20px,5vw,72px) clamp(48px,6vw,80px)">
+      <div onClick="{{ goPortfolioList }}" style="font:400 13px/1 'DM Sans',sans-serif;color:#555;margin-bottom:48px;cursor:pointer">← Back to Portfolio</div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+        <div style="width:32px;height:1.5px;background:#FF6200"></div>
+        <span style="font:500 11px/1 'DM Sans',sans-serif;color:#FF6200;letter-spacing:.2em;text-transform:uppercase">Portfolio</span>
+      </div>
+      <h1 style="font:700 clamp(32px,6vw,60px)/1.05 'Playfair Display',serif;color:#fff;margin-bottom:20px;max-width:740px">{{ selected.name }}</h1>
+      <p style="font:400 18px/1.75 'DM Sans',sans-serif;color:#666;max-width:680px">{{ selected.tagline }}</p>
+    </section>
+    <section style="padding:clamp(48px,7vw,88px) clamp(20px,5vw,72px);background:#fff">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,6vw,96px);align-items:start">
+        <div>
+          <sc-if value="{{ selected.image }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ selected.image }}" style="width:100%;height:460px;object-fit:cover;display:block;margin-bottom:56px" />
+          </sc-if>
+          <sc-if value="{{ selected.noImage }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#F2F0EB;border:1px solid #E6E2DB;width:100%;height:460px;display:flex;align-items:center;justify-content:center;margin-bottom:56px">
+            <div style="text-align:center">
+              <div style="width:64px;height:64px;border:1.5px solid #DDD9D1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px"><div style="font:400 26px/1 system-ui;color:#C8C4BC">⌁</div></div>
+              <div style="font:600 11px/1 'DM Sans',sans-serif;color:#C4BFB7;letter-spacing:.12em;text-transform:uppercase">Portfolio Photo</div>
+            </div>
+          </div>
+          </sc-if>
+          <h2 style="font:700 38px/1.15 'Playfair Display',serif;color:#111;margin-bottom:24px">About This Portfolio</h2>
+          <p style="font:400 17px/1.85 'DM Sans',sans-serif;color:#555;margin-bottom:52px">{{ selected.description }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border-top:1px solid #ECEAE5">
+            <div style="padding:28px 0;border-right:1px solid #ECEAE5"><div style="font:700 28px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ selected.location }}</div><div style="font:400 11px/1 'DM Sans',sans-serif;color:#BFBBB3;text-transform:uppercase;letter-spacing:.1em">Location</div></div>
+            <div style="padding:28px 28px;border-right:1px solid #ECEAE5"><div style="font:700 28px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ selected.horizon }}</div><div style="font:400 11px/1 'DM Sans',sans-serif;color:#BFBBB3;text-transform:uppercase;letter-spacing:.1em">Investment Horizon</div></div>
+            <div style="padding:28px 28px"><div style="font:700 28px/1 'Playfair Display',serif;color:#111;margin-bottom:8px">{{ selected.communityType }}</div><div style="font:400 11px/1 'DM Sans',sans-serif;color:#BFBBB3;text-transform:uppercase;letter-spacing:.1em">Communities</div></div>
+          </div>
+        </div>
+        <div style="background:#F7F5F0;padding:48px 40px">
+          <sc-if value="{{ enquiryNotSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h3 style="font:700 30px/1.15 'Playfair Display',serif;color:#111;margin-bottom:10px">Interested in this Portfolio?</h3>
+            <p style="font:400 14px/1.65 'DM Sans',sans-serif;color:#999;margin-bottom:44px">Leave your details and we will reach out to you within 24 hours.</p>
+            <div style="margin-bottom:22px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">Your Name</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">Full name</div></div>
+            <div style="margin-bottom:22px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">Email Address</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">your@email.com</div></div>
+            <div style="margin-bottom:40px"><label style="display:block;font:500 14px/1 'DM Sans',sans-serif;color:#333;margin-bottom:10px">WhatsApp Number</label><div style="background:#fff;border:1.5px solid #E2DED7;padding:17px 20px;font:400 16px/1 'DM Sans',sans-serif;color:#C4BFB7">+234 ...</div></div>
+            <div onClick="{{ submitEnquiry }}" style="background:#FF6200;color:#fff;padding:20px;font:600 18px/1 'DM Sans',sans-serif;text-align:center;cursor:pointer">I'm Interested →</div>
+            <p style="font:400 12px/1.4 'DM Sans',sans-serif;color:#C4BFB7;text-align:center;margin-top:14px">We'll reach out within 24 hours.</p>
+            <div style="border-top:1px solid #E6E2DB;margin:40px 0 32px"></div>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="width:52px;height:66px;background:#E6E2DB;flex-shrink:0;display:flex;align-items:center;justify-content:center"><div style="font:400 10px/1 'DM Sans',sans-serif;color:#C4BFB7;text-align:center">2026</div></div>
+              <div style="flex:1">
+                <div style="font:600 13px/1.3 'DM Sans',sans-serif;color:#111;margin-bottom:4px">The Lagos Rent Report 2026</div>
+                <div style="font:400 12px/1 'DM Sans',sans-serif;color:#999;margin-bottom:10px">Free download</div>
+                <div style="font:500 13px/1 'DM Sans',sans-serif;color:#FF6200">Download Report →</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+          <sc-if value="{{ enquirySubmitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:32px 0">
+            <div style="width:56px;height:56px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font:700 22px/1 'DM Sans',sans-serif;color:#FF6200">✓</div>
+            <h3 style="font:700 32px/1.15 'Playfair Display',serif;color:#111;margin-bottom:14px">Thank You!</h3>
+            <p style="font:400 16px/1.65 'DM Sans',sans-serif;color:#999">We've received your enquiry — a member of our team will reach out within 24 hours.</p>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <footer style="background:#111;padding:24px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid #1C1C1C">
+    <div style="display:flex;align-items:flex-start;gap:5px">
+      <div style="width:7px;height:7px;border-radius:50%;background:#FF3C3C;margin-top:4px;flex-shrink:0"></div>
+      <span style="font:800 20px/1 'Nunito',sans-serif;color:#FF6200;letter-spacing:-.02em">Rentcom</span>
+    </div>
+    <div style="font:400 13px/1 'DM Sans',sans-serif;color:#555">© 2026 Rentcom · Lagos, Nigeria</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// To add another portfolio project, add an entry to PROJECTS below —
+// it automatically appears as a new card on the Portfolio list page.
+const PROJECTS = [
+  {
+    id: 'lwfhd',
+    name: 'Revenue Generating Portfolio',
+    tagline: 'A partnership-driven portfolio positioned to finance, execute and operate serviced workforce residential communities across Lagos.',
+    description: 'LWFHD is a partnership-driven housing development positioned to finance, execute and operate serviced workforce residential communities across Lagos, creating long-term value for investors, project partners and unit owners.',
+    location: 'Lagos',
+    horizon: 'Long-term',
+    communityType: 'Serviced',
+  },
+  {
+    id: 'falcon-house',
+    name: 'Falcon Apartment',
+    tagline: 'A rental income asset in Fadeyi, Lagos — studio and one-bedroom units built for steady occupancy.',
+    description: 'Falcon Apartment is a Lagos workforce housing investment in Fadeyi comprising 3 studio units (₦114M) and 2 one-bedroom apartments (₦116M), fitted with an elevator, central power, borehole water, WiFi connectivity, CCTV surveillance, 24/7 security and on-site management.',
+    location: 'Fadeyi',
+    horizon: 'Long-term',
+    communityType: 'Serviced',
+    image: 'assets/falcon-house.jpg',
+  },
+];
+
+class Component extends DCLogic {
+  state = { view: (typeof window !== 'undefined' && window.location.hash === '#portfolio') ? 'list' : 'home', selectedId: null, reportSubmitted: false, enquirySubmitted: false, audience: 'investor' };
+
+  renderVals() {
+    const selectedRaw = PROJECTS.find(p => p.id === this.state.selectedId) || PROJECTS[0];
+    const selected = { ...selectedRaw, noImage: !selectedRaw.image };
+    const projects = PROJECTS.map(p => ({ ...p, noImage: !p.image, select: () => this.setState({ view: 'detail', selectedId: p.id }) }));
+    const navBase = "font:500 15px/1 'DM Sans',sans-serif;cursor:pointer;";
+    const isInvestor = this.state.audience === 'investor';
+    const pillBase = "padding:10px 22px;font:500 14px/1 'DM Sans',sans-serif;cursor:pointer;transition:all .15s";
+    return {
+      isHome: this.state.view === 'home',
+      isPortfolioList: this.state.view === 'list',
+      isPortfolioDetail: this.state.view === 'detail',
+      goHome: () => this.setState({ view: 'home' }),
+      goPortfolioList: () => this.setState({ view: 'list' }),
+      submitReport: () => this.setState({ reportSubmitted: true }),
+      submitEnquiry: () => this.setState({ enquirySubmitted: true }),
+      reportNotSubmitted: !this.state.reportSubmitted,
+      reportSubmitted: this.state.reportSubmitted,
+      enquiryNotSubmitted: !this.state.enquirySubmitted,
+      enquirySubmitted: this.state.enquirySubmitted,
+      portfolioNavStyle: navBase + (this.state.view !== 'home' ? 'color:#FF6200;border-bottom:1.5px solid #FF6200;padding-bottom:2px' : 'color:#888'),
+      projects,
+      selected,
+      setInvestor: () => this.setState({ audience: 'investor' }),
+      setRealtor: () => this.setState({ audience: 'realtor' }),
+      investorPillStyle: pillBase + (isInvestor ? 'background:#FF6200;color:#fff' : 'color:#888'),
+      realtorPillStyle: pillBase + (!isInvestor ? 'background:#FF6200;color:#fff' : 'color:#888'),
+      eyebrow: isInvestor ? 'Rental Intelligence · Lagos, Nigeria' : 'Realtor Partner Program · Fadayee',
+      headline: isInvestor ? 'We understand the Lagos rental market better than anyone.' : 'Sell the Revenue Generating Portfolio.',
+      subhead: isInvestor
+        ? 'Annual reports that tell investors exactly where to look, what to pay, and what to expect next.'
+        : 'LWFHD is a partnership-driven housing development positioned to finance, execute and operate serviced workforce residential communities across Lagos. Register today for the brochure, invite packs, and full marketing kit ahead of the August 30th groundbreaking.',
+      stat1Val: isInvestor ? '15+' : 'Aug 30',
+      stat1Label: isInvestor ? 'Lagos Submarkets Tracked' : 'Groundbreaking Event',
+      stat2Val: isInvestor ? '₦4.2M' : 'Free',
+      stat2Label: isInvestor ? 'Average Annual Rent' : 'Brochure & Marketing Kit',
+      ctaLabel: isInvestor ? 'Speak with a Portfolio Manager' : 'Register as a Realtor',
+      ctaHref: isInvestor ? './Rentcom Investor Journey.dc.html' : './Rentcom Realtor Journey.dc.html',
+      teaserEyebrow: isInvestor ? 'Our Portfolio' : 'Groundbreaking Campaign',
+      teaserHeadline: isInvestor ? 'Revenue Generating Portfolio' : 'Aug 30th Groundbreaking',
+      teaserBody: isInvestor
+        ? 'A partnership-driven portfolio positioned to finance, execute and operate serviced residential communities across Lagos — creating long-term value for investors and unit owners.'
+        : 'Register as a realtor to get the brochure, physical invite packs, and full marketing kit ahead of the Fadayee groundbreaking.',
+      teaserCta: isInvestor ? 'Explore Portfolio' : 'Register as a Realtor',
+      teaserHref: isInvestor ? '#' : './Rentcom Realtor Journey.dc.html',
+      teaserClick: isInvestor ? (e) => { e.preventDefault(); this.setState({ view: 'list' }); } : undefined,
+      teaserPhotoLabel: isInvestor ? 'Portfolio Photo' : 'Groundbreaking Site Photo',
+      isInvestor,
+      isRealtor: !isInvestor,
+    };
+  }
+}
+</script>
+</body>
+</html>
