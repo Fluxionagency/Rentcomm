@@ -238,6 +238,9 @@
 <script>
 // To add another portfolio project, add an entry to PROJECTS below —
 // it automatically appears as a new card on the Portfolio list view.
+// Give it an `image` + `description`/`location`/`horizon`/`communityType` for
+// an in-page detail view, or an `href` to link the card straight to its own
+// standalone page instead (see "workforce-apartments" below).
 const PROJECTS = [
   {
     id: 'lwfhd',
@@ -257,6 +260,12 @@ const PROJECTS = [
     horizon: 'Long-term',
     communityType: 'Serviced',
     image: 'assets/img/falcon-house.jpg',
+  },
+  {
+    id: 'workforce-apartments',
+    name: 'The Workforce Apartments',
+    tagline: 'Rental housing in Ojota, Lagos — 36 units engineered for high occupancy and dependable income.',
+    href: 'workforce-apartments.html',
   },
 ];
 
@@ -328,8 +337,9 @@ function renderProjects() {
   const grid = $('project-grid');
   grid.innerHTML = '';
   for (const p of PROJECTS) {
-    const card = document.createElement('div');
-    card.style.cssText = 'border:1px solid #E6E2DB;cursor:pointer';
+    const card = document.createElement(p.href ? 'a' : 'div');
+    card.style.cssText = 'display:block;border:1px solid #E6E2DB;cursor:pointer;text-decoration:none';
+    if (p.href) card.href = p.href;
     const media = p.image
       ? '<img src="' + p.image + '" alt="' + p.name + '" style="width:100%;height:280px;object-fit:cover;display:block">'
       : '<div style="background:#F2F0EB;height:280px;display:flex;align-items:center;justify-content:center"><div style="text-align:center">'
@@ -344,7 +354,9 @@ function renderProjects() {
       + '</div>';
     card.querySelector('h3').textContent = p.name;
     card.querySelector('p').textContent = p.tagline;
-    card.addEventListener('click', () => { state.view = 'detail'; state.selectedId = p.id; render(); });
+    if (!p.href) {
+      card.addEventListener('click', () => { state.view = 'detail'; state.selectedId = p.id; render(); });
+    }
     grid.appendChild(card);
   }
 }
