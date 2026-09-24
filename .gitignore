@@ -5,3 +5,9 @@ public_html/api/config.php
 public_html/downloads/*
 !public_html/downloads/.htaccess
 !public_html/downloads/README.md
+
+# Vercel CLI local project link + any local env files (real values live in
+# the Vercel dashboard's Environment Variables, never in the repo)
+.vercel
+.env
+.env.local

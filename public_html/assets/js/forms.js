@@ -18,7 +18,16 @@
       var originalLabel = button ? button.textContent : '';
       if (button) { button.disabled = true; button.textContent = 'Sending…'; }
 
-      fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      // Sent as application/x-www-form-urlencoded rather than raw FormData:
+      // PHP's $_POST parses both identically for plain text fields, but the
+      // Vercel serverless functions (see /api/*.js at the repo root) only
+      // auto-parse urlencoded/json/text bodies, not multipart — so this one
+      // request shape works unmodified against either backend.
+      fetch(form.dataset.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      })
         .then(function (res) { return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok && data.ok, data: data }; }); })
         .then(function (result) {
           if (!result.ok) throw new Error(result.data.error || 'Something went wrong. Please try again.');

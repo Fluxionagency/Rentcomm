@@ -2,3 +2,11 @@
 <FilesMatch "^(config|config\.sample)\.php$">
   Require all denied
 </FilesMatch>
+
+# Let the front-end call extension-less endpoints (e.g. api/investor-enquiry)
+# on this host too, resolving to the .php file — the same HTML then works
+# unmodified whether deployed here or on Vercel, where /api/investor-enquiry.js
+# is served natively at that exact path with no rewrite needed.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-z-]+)$ $1.php [L]

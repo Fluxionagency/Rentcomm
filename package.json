@@ -1,0 +1,6 @@
+{
+  "name": "rentcom",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Rentcom — public site (static) + Vercel serverless lead-capture functions (Phase 1). See README.md."
+}
