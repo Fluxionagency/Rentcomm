@@ -1,4 +1,7 @@
 {
   "framework": null,
-  "outputDirectory": "public_html"
+  "outputDirectory": "public_html",
+  "rewrites": [
+    { "source": "/workforce-apartments", "destination": "/workforce-apartments.html" }
+  ]
 }
